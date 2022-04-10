@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ZetPass</string>
+    <string name="enter">Войти</string>
+    <string name="error_auth_empty">Ошибка</string>
+
+    <string name="application">Приложение</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="ok_button">Потвердить</string>
+
+    <string name="delete_settings">Удалить записи</string>
+    <string name="add_settings">Добавить запись</string>
+
+    <string name="your_records" color="@color/yellow_500">Ваши записи</string>
+    <string name="your_redact" color="@color/yellow_500">Редактирование…</string>
+</resources>
