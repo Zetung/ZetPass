@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/authFragment">
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.zetung.zetpass.ui.auth.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.zetung.zetpass.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/redactFragment"
+        android:name="com.zetung.zetpass.ui.redact.RedactFragment"
+        android:label="fragment_redact"
+        tools:layout="@layout/fragment_redact" />
+    <fragment
+        android:id="@+id/optionsFragment"
+        android:name="com.zetung.zetpass.ui.options.OptionsFragment"
+        android:label="fragment_options"
+        tools:layout="@layout/fragment_options" />
+    <fragment
+        android:id="@+id/friendsFragment"
+        android:name="com.zetung.zetpass.ui.friends.FriendsFragment"
+        android:label="fragment_friends"
+        tools:layout="@layout/fragment_friends" />
+    <fragment
+        android:id="@+id/inviteFragment"
+        android:name="com.zetung.zetpass.ui.invite.InviteFragment"
+        android:label="fragment_invite"
+        tools:layout="@layout/fragment_invite" />
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.zetung.zetpass.ui.inbox.InboxFragment"
+        android:label="fragment_inbox"
+        tools:layout="@layout/fragment_inbox" />
+</navigation>
