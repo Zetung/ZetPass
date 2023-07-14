@@ -20,5 +20,10 @@
             android:id="@+id/nav_invite"
             android:icon="@drawable/menu_invite24"
             android:title="@string/invite" />
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/menu_exit24"
+            android:title="@string/exit"
+            />
     </group>
 </menu>

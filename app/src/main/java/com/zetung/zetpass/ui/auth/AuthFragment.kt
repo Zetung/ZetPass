@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.zetung.zetpass.R
 import com.zetung.zetpass.databinding.FragmentAuthBinding
 
@@ -26,8 +28,9 @@ class AuthFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+
         binding.enterButton.setOnClickListener {
-            //Navigation.findNavController(requireActivity().parent,R.layout.activity_main).navigate(R.id.homeFragment)
+            findNavController().navigate(R.id.action_authFragment_to_homeFragment)
         }
     }
 
