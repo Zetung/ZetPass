@@ -33,17 +33,50 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment,  R.id.inboxFragment, R.id.friendsFragment,  R.id.inviteFragment
+                //R.id.homeFragment,  R.id.inboxFragment, R.id.friendsFragment,  R.id.inviteFragment
+                R.id.nav_home,  R.id.nav_inbox, R.id.nav_friends,  R.id.nav_invite
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id != R.id.authFragment) {
+            if (destination.id != R.id.authFragment ) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             } else {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            }
+        }
+
+        navView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    navController.navigate(R.id.nav_home)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_inbox -> {
+                    navController.navigate(R.id.nav_inbox)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_friends -> {
+                    navController.navigate(R.id.nav_friends)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_invite -> {
+                    navController.navigate(R.id.nav_invite)
+                    drawerLayout.closeDrawers()
+                    true
+                }
+                R.id.nav_exit -> {
+                    navController.navigate(R.id.authFragment)
+                    true
+                }
+                else -> false
             }
         }
 
@@ -62,7 +95,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
