@@ -6,4 +6,13 @@
     </style>
 
     <style name="Theme.ZetPass" parent="Base.Theme.ZetPass" />
+
+    <style name="Theme.ZetPass.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.TestSideMenu.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.TestSideMenu.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
