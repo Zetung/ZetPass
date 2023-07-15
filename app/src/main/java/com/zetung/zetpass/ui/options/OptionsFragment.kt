@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Switch
 import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.zetung.zetpass.databinding.FragmentOptionsBinding
 
 
@@ -23,25 +23,32 @@ class OptionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val homeViewModel =
+        val optionsViewModel =
             ViewModelProvider(this).get(OptionsViewModel::class.java)
-       // homeViewModel.setContext(requireContext())
 
         _binding = FragmentOptionsBinding.inflate(inflater, container, false)
 
         val editIp: EditText = binding.editIp
-        homeViewModel.ip.observe(viewLifecycleOwner) {
+        optionsViewModel.ip.observe(viewLifecycleOwner) {
             editIp.text = SpannableStringBuilder(it)
         }
 
         val editPort: EditText = binding.editPort
-        homeViewModel.port.observe(viewLifecycleOwner) {
+        optionsViewModel.port.observe(viewLifecycleOwner) {
             editPort.text = SpannableStringBuilder(it.toString())
         }
 
         val onlineMode: SwitchCompat = binding.online
-        homeViewModel.online.observe(viewLifecycleOwner) {
+        optionsViewModel.online.observe(viewLifecycleOwner) {
             onlineMode.isChecked = it
+        }
+
+        binding.acceptButton.setOnClickListener {
+            optionsViewModel.ip.value = binding.editIp.text.toString()
+            optionsViewModel.port.value = binding.editPort.text.toString().toInt()
+            optionsViewModel.online.value = binding.online.isChecked
+            optionsViewModel.saveSettings()
+            findNavController().popBackStack()
         }
 
         return binding.root
