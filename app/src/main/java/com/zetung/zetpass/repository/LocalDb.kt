@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.zetung.zetpass.repository.model.User
+import com.zetung.zetpass.repository.model.UserModel
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [UserModel::class], version = 1)
 abstract class LocalDb: RoomDatabase() {
     abstract fun getUserDAO(): UserDAO
     //abstract fun getRecordDAO(): RecordDAO

@@ -2,7 +2,7 @@ package com.zetung.zetpass.repository
 
 import com.zetung.zetpass.repository.model.AppSettingsModel
 
-interface AppSettingsDAO {
+interface AppSettingsDbAPI {
     fun getAppSettings(): AppSettingsModel
     fun setAppSettings(appSettingsModel: AppSettingsModel)
     fun getIp():String

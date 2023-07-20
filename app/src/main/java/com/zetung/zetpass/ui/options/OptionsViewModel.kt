@@ -1,18 +1,14 @@
 package com.zetung.zetpass.ui.options
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.zetung.zetpass.repository.AppSettingsDAO
-import com.zetung.zetpass.repository.AppSettingsShared
+import com.zetung.zetpass.repository.implementation.AppSettingsDbShared
 import com.zetung.zetpass.repository.model.AppSettingsModel
 
 class OptionsViewModel(application: Application): AndroidViewModel(application) {
 
-    private val appSettingsDAO = AppSettingsShared(application)
+    private val appSettingsDAO = AppSettingsDbShared(application)
 
     val ip = MutableLiveData<String>().apply {
         value = appSettingsDAO.getIp()

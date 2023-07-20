@@ -1,10 +1,11 @@
-package com.zetung.zetpass.repository
+package com.zetung.zetpass.repository.implementation
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.zetung.zetpass.repository.AppSettingsDbAPI
 import com.zetung.zetpass.repository.model.AppSettingsModel
 
-class AppSettingsShared(context: Context) : AppSettingsDAO {
+class AppSettingsDbShared(context: Context) : AppSettingsDbAPI {
     private val sharedPreferences : SharedPreferences
 
     init {
