@@ -8,23 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zetung.zetpass.databinding.FragmentOptionsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class OptionsFragment : Fragment() {
 
     private var _binding: FragmentOptionsBinding? = null
     private val binding get() = _binding!!
 
+    private val optionsViewModel: OptionsViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        val optionsViewModel =
-            ViewModelProvider(this).get(OptionsViewModel::class.java)
+//         =
+//            ViewModelProvider(this).get(OptionsViewModel::class.java)
 
         _binding = FragmentOptionsBinding.inflate(inflater, container, false)
 

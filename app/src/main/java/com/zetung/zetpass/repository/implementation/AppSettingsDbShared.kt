@@ -4,8 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.zetung.zetpass.repository.AppSettingsDbAPI
 import com.zetung.zetpass.repository.model.AppSettingsModel
+import javax.inject.Inject
 
-class AppSettingsDbShared(context: Context) : AppSettingsDbAPI {
+class AppSettingsDbShared @Inject constructor (context: Context) : AppSettingsDbAPI {
     private val sharedPreferences : SharedPreferences
 
     init {

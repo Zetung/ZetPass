@@ -3,12 +3,17 @@ package com.zetung.zetpass.ui.options
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.zetung.zetpass.repository.AppSettingsDbAPI
 import com.zetung.zetpass.repository.implementation.AppSettingsDbShared
 import com.zetung.zetpass.repository.model.AppSettingsModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class OptionsViewModel(application: Application): AndroidViewModel(application) {
+@HiltViewModel
+class OptionsViewModel @Inject constructor(private val appSettingsDAO: AppSettingsDbAPI): ViewModel() {
 
-    private val appSettingsDAO = AppSettingsDbShared(application)
+//     = AppSettingsDbShared(application)
 
     val ip = MutableLiveData<String>().apply {
         value = appSettingsDAO.getIp()
