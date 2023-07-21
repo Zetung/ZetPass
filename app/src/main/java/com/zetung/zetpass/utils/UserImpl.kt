@@ -11,24 +11,21 @@ class UserImpl @Inject constructor(
 ) : UserAPI {
 
     private var authState: AuthState = AuthState.NotStarted()
-
-    override fun getState(): AuthState {
-        return authState
-    }
-
-    override fun loadUser(): UserModel {
+    override fun loadUser(): AuthState {
         TODO("Not yet implemented")
     }
 
-    override fun enterUser(): Boolean {
+    override fun enterUser(): AuthState {
         TODO("Not yet implemented")
     }
 
-    override fun regUser(): Boolean {
+    override fun regUser(): AuthState {
         TODO("Not yet implemented")
     }
 
-    override fun confirmUser(): Boolean {
+    override fun confirmUser(): AuthState {
         TODO("Not yet implemented")
     }
+
+
 }
