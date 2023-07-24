@@ -14,16 +14,25 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.zetung.zetpass.databinding.ActivityMainBinding
+import com.zetung.zetpass.repository.AppSettingsDbAPI
+import com.zetung.zetpass.utils.singleton.CurrentAppSettings
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     lateinit var navController: NavController
+    @Inject
+    lateinit var currentAppSettings: CurrentAppSettings
+    @Inject
+    lateinit var appSettingsDbAPI: AppSettingsDbAPI
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        currentAppSettings.appSettingsModel = appSettingsDbAPI.getAppSettings()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

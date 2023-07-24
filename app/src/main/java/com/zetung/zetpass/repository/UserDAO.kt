@@ -10,10 +10,10 @@ import com.zetung.zetpass.repository.model.UserModel
 @Dao
 interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun newUser(userModel: UserModel)
+    suspend fun newUser(userModel: UserModel)
     @Query("SELECT * FROM user WHERE login=:login")
-    fun selectUser(login:String):UserModel
+    suspend fun selectUser(login:String):UserModel
     @Query("UPDATE user SET confirm=1 WHERE login=:login")
-    fun updateStatus(login: String)
+    suspend fun updateStatus(login: String)
 
 }

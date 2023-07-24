@@ -1,25 +1,27 @@
 package com.zetung.zetpass.utils.di
 
 import android.content.Context
-import com.zetung.zetpass.repository.AppSettingsDbAPI
 import com.zetung.zetpass.repository.UserDbAPI
 import com.zetung.zetpass.repository.implementation.UserDbRoom
-import com.zetung.zetpass.utils.UserAPI
-import com.zetung.zetpass.utils.UserImpl
+import com.zetung.zetpass.utils.UserEnterAPI
+import com.zetung.zetpass.utils.UserEnterImpl
+import com.zetung.zetpass.utils.singleton.CurrentAppSettings
+import com.zetung.zetpass.utils.singleton.CurrentUser
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 object UserDI {
 
     @Provides
-    fun provideUserImpl(userDbAPI: UserDbAPI, appSettingsDbAPI: AppSettingsDbAPI): UserAPI {
-        return UserImpl (userDbAPI,appSettingsDbAPI)
+    fun provideUserImpl(userDbAPI: UserDbAPI,
+                        currentAppSettings: CurrentAppSettings,
+                        currentUser: CurrentUser): UserEnterAPI {
+        return UserEnterImpl (userDbAPI,currentAppSettings,currentUser)
     }
 
 
