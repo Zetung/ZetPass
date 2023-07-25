@@ -1,4 +1,4 @@
-package com.zetung.zetpass.repository
+package com.zetung.zetpass.repository.support
 
 import android.content.Context
 import androidx.room.Database
@@ -12,7 +12,7 @@ abstract class LocalDb: RoomDatabase() {
     //abstract fun getRecordDAO(): RecordDAO
 
     companion object{
-        fun getDb(context: Context): LocalDb{
+        fun getDb(context: Context): LocalDb {
             return Room.databaseBuilder(
                 context.applicationContext,
                 LocalDb::class.java,

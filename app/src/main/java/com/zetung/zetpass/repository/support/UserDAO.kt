@@ -1,4 +1,4 @@
-package com.zetung.zetpass.repository
+package com.zetung.zetpass.repository.support
 
 import androidx.room.Dao
 import androidx.room.Insert
