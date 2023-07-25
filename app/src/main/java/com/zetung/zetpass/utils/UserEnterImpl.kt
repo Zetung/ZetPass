@@ -71,7 +71,7 @@ class UserEnterImpl @Inject constructor(
             override fun onSuccess() {
                 authState = AuthState.Loading()
             }
-            override fun onException(exception: Exception) {
+            override fun onException(exception: SQLException) {
                 authState = AuthState.Error(exception.toString())
             }
         })
