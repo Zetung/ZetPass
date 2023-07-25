@@ -9,8 +9,7 @@ import com.zetung.zetpass.repository.model.UserModel
 @Database(entities = [UserModel::class], version = 1)
 abstract class LocalDb: RoomDatabase() {
     abstract fun getUserDAO(): UserDAO
-    //abstract fun getRecordDAO(): RecordDAO
-
+    abstract fun getRecordDAO(): RecordDAO
     companion object{
         fun getDb(context: Context): LocalDb {
             return Room.databaseBuilder(
