@@ -1,9 +1,7 @@
 package com.zetung.zetpass.ui.auth
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zetung.zetpass.repository.model.UserModel
 import com.zetung.zetpass.utils.AuthState
 import com.zetung.zetpass.utils.UserEnterAPI
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,20 +15,34 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val userEnterAPI: UserEnterAPI): ViewModel() {
 
-    val msgState = MutableLiveData<AuthState>().apply {
-        value = AuthState.NotStarted()
-    }
+    val msgState = MutableLiveData<AuthState>()
 
     fun enter(login:String, password:String){
-        CoroutineScope(Dispatchers.Main).launch {
-            msgState.value = userEnterAPI.enterUser(login,password).last()
-        }
+        if (checkFields(login, password))
+            CoroutineScope(Dispatchers.Main).launch {
+                msgState.value = userEnterAPI.enterUser(login,password).last()
+            }
     }
 
     fun reg(login:String, password:String){
-        CoroutineScope(Dispatchers.Main).launch {
-            msgState.value = userEnterAPI.regUser(login,password).last()
+        if (checkFields(login, password))
+            CoroutineScope(Dispatchers.Main).launch {
+                msgState.value = userEnterAPI.regUser(login,password).last()
+            }
+    }
+
+    private fun checkFields(login: String, password: String):Boolean{
+        when {
+            login.isEmpty() || password.isEmpty() -> {
+                msgState.value = AuthState.Error("Fields is empty!")
+                return false
+            }
+            "%" in login || "%" in password -> {
+                msgState.value = AuthState.Error("You can't use '%'")
+                return false
+            }
         }
+        return true
     }
 
 }

@@ -11,7 +11,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.last
-import java.lang.Exception
 import java.sql.SQLException
 import javax.inject.Inject
 
@@ -50,13 +49,13 @@ class UserEnterImpl @Inject constructor(
                 if (currentUser.userModel.confirm){
 
                 } else {
-
+                    // to server
                 }
             } else {
-                if (currentUser.userModel.password == password)
-                    authState = AuthState.Done("Local load is done!")
+                authState = if (currentUser.userModel.password == password)
+                    AuthState.Done("Local enter is done!")
                 else
-                    authState = AuthState.Error("Wrong password")
+                    AuthState.Error("Wrong password")
             }
         emit(authState)
     }
@@ -73,7 +72,7 @@ class UserEnterImpl @Inject constructor(
                 authState = AuthState.Loading()
             }
             override fun onException(exception: Exception) {
-                authState = AuthState.Error(exception.message)
+                authState = AuthState.Error(exception.toString())
             }
         })
         emit(authState)
@@ -91,7 +90,6 @@ class UserEnterImpl @Inject constructor(
             if (fromDatabase.last() is AuthState.Loading){
                 currentUser.userModel = userModel
                 authState = AuthState.Done("Local reg is done!")
-
             }
         }
         emit(authState)

@@ -3,7 +3,6 @@ package com.zetung.zetpass.ui.options
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zetung.zetpass.repository.AppSettingsDbAPI
-import com.zetung.zetpass.repository.model.AppSettingsModel
 import com.zetung.zetpass.utils.singleton.CurrentAppSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

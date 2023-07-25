@@ -1,10 +1,10 @@
 package com.zetung.zetpass.repository.implementation
 
 import android.content.Context
-import com.zetung.zetpass.repository.support.LocalDb
 import com.zetung.zetpass.repository.UserDbAPI
 import com.zetung.zetpass.repository.model.UserModel
 import com.zetung.zetpass.repository.support.DbCallback
+import com.zetung.zetpass.repository.support.LocalDb
 
 class UserDbRoom (private val context: Context) : UserDbAPI {
 
