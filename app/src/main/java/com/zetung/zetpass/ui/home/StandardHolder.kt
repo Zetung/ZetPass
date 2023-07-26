@@ -1,7 +1,6 @@
 package com.zetung.zetpass.ui.home
 
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import com.zetung.zetpass.R
 import com.zetung.zetpass.repository.model.RecordModel
