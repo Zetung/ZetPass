@@ -17,5 +17,7 @@
     <string name="port">Port</string>
     <string name="online_mode">Online mode</string>
     <string name="ok_button">SAVE</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
 
 </resources>

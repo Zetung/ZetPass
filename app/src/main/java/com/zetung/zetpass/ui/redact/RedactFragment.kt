@@ -25,7 +25,6 @@ class RedactFragment : Fragment() {
     ): View {
         _binding = FragmentRedactBinding.inflate(inflater,container,false)
 
-        binding.textView.text = redactViewModel.redactRecord.value
 
         return binding.root
     }
