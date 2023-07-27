@@ -4,7 +4,6 @@ import android.content.Context
 import com.zetung.zetpass.repository.RecordDbAPI
 import com.zetung.zetpass.repository.model.RecordModel
 import com.zetung.zetpass.repository.support.LocalDb
-import javax.inject.Inject
 
 class RecordDbRoom (private val context: Context) : RecordDbAPI {
     override suspend fun insertRecord(recordModel: RecordModel) {
