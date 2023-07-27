@@ -20,31 +20,31 @@ class UserEnterImpl @Inject constructor(
     private val currentUser: CurrentUser
 ) : UserEnterAPI {
 
-    private var authState: AuthState = AuthState.NotStarted()
+    private var loadState: LoadState = LoadState.NotStarted()
 
 
     //----------Sign up block----------
-    private fun fetchEnterFromDatabase(login: String): Flow<AuthState> = flow {
+    private fun fetchEnterFromDatabase(login: String): Flow<LoadState> = flow {
         try {
             val localUser = userDbAPI.getUser(login)
             if(localUser != null){
                 currentUser.userModel = localUser
-                authState = AuthState.Loading()
-                emit(authState)
+                loadState = LoadState.Loading()
+                emit(loadState)
             } else {
-                authState = AuthState.Error("Not found")
-                emit(authState)
+                loadState = LoadState.Error("Not found")
+                emit(loadState)
             }
         } catch (e: SQLException){
-            authState = AuthState.Error(e.toString())
-            emit(authState)
+            loadState = LoadState.Error(e.toString())
+            emit(loadState)
         }
     }
 
-    private fun enterProcess(login: String, password:String): Flow<AuthState> = flow{
+    private fun enterProcess(login: String, password:String): Flow<LoadState> = flow{
         val deferredDatabase = CoroutineScope(Dispatchers.Main).async { fetchEnterFromDatabase(login) }
         val fromDatabase = deferredDatabase.await()
-        if(fromDatabase.last() is AuthState.Loading)
+        if(fromDatabase.last() is LoadState.Loading)
             if (currentAppSettings.appSettingsModel.online){
                 if (currentUser.userModel.confirm){
 
@@ -52,33 +52,33 @@ class UserEnterImpl @Inject constructor(
                     // to server
                 }
             } else {
-                authState = if (currentUser.userModel.password == password)
-                    AuthState.Done("Local enter is done!")
+                loadState = if (currentUser.userModel.password == password)
+                    LoadState.Done("Local enter is done!")
                 else
-                    AuthState.Error("Wrong password")
+                    LoadState.Error("Wrong password")
             }
-        emit(authState)
+        emit(loadState)
     }
 
-    override fun enterUser(login: String, password:String): Flow<AuthState> {
-        authState = AuthState.NotStarted()
+    override fun enterUser(login: String, password:String): Flow<LoadState> {
+        loadState = LoadState.NotStarted()
         return enterProcess(login,password)
     }
 
     //----------Sign in block----------
-    private fun fetchRegFromDatabase(userModel: UserModel): Flow<AuthState> = flow {
+    private fun fetchRegFromDatabase(userModel: UserModel): Flow<LoadState> = flow {
         userDbAPI.addUser(userModel,object : DbCallback{
             override fun onSuccess() {
-                authState = AuthState.Loading()
+                loadState = LoadState.Loading()
             }
-            override fun onException(exception: Exception) {
-                authState = AuthState.Error(exception.toString())
+            override fun onException(exception: SQLException) {
+                loadState = LoadState.Error(exception.toString())
             }
         })
-        emit(authState)
+        emit(loadState)
     }
 
-    private fun regProcess(login: String, password:String): Flow<AuthState> = flow{
+    private fun regProcess(login: String, password:String): Flow<LoadState> = flow{
 
         val userModel = UserModel(null,login,password,currentAppSettings.appSettingsModel.online)
 
@@ -87,21 +87,21 @@ class UserEnterImpl @Inject constructor(
         } else {
             val deferredDatabase = CoroutineScope(Dispatchers.Main).async { fetchRegFromDatabase(userModel) }
             val fromDatabase = deferredDatabase.await()
-            if (fromDatabase.last() is AuthState.Loading){
+            if (fromDatabase.last() is LoadState.Loading){
                 currentUser.userModel = userModel
-                authState = AuthState.Done("Local reg is done!")
+                loadState = LoadState.Done("Local reg is done!")
             }
         }
-        emit(authState)
+        emit(loadState)
     }
 
-    override fun regUser(login: String, password:String): Flow<AuthState> {
-        authState = AuthState.NotStarted()
+    override fun regUser(login: String, password:String): Flow<LoadState> {
+        loadState = LoadState.NotStarted()
         return regProcess(login,password)
     }
 
     //----------Confirm block----------
-    override fun confirmUser(userModel: UserModel): AuthState {
+    override fun confirmUser(userModel: UserModel): LoadState {
         TODO("Not yet implemented")
     }
 

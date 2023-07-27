@@ -5,6 +5,7 @@ import com.zetung.zetpass.repository.UserDbAPI
 import com.zetung.zetpass.repository.model.UserModel
 import com.zetung.zetpass.repository.support.DbCallback
 import com.zetung.zetpass.repository.support.LocalDb
+import java.sql.SQLException
 
 class UserDbRoom (private val context: Context) : UserDbAPI {
 
@@ -16,7 +17,7 @@ class UserDbRoom (private val context: Context) : UserDbAPI {
         try{
             LocalDb.getDb(context).getUserDAO().newUser(user)
             dbCallback.onSuccess()
-        } catch (ex: Exception){
+        } catch (ex: SQLException){
             dbCallback.onException(ex)
         }
     }

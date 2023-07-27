@@ -2,7 +2,7 @@ package com.zetung.zetpass.ui.auth
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zetung.zetpass.utils.AuthState
+import com.zetung.zetpass.utils.LoadState
 import com.zetung.zetpass.utils.UserEnterAPI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val userEnterAPI: UserEnterAPI): ViewModel() {
 
-    val msgState = MutableLiveData<AuthState>()
+    val msgState = MutableLiveData<LoadState>()
 
     fun enter(login:String, password:String){
         if (checkFields(login, password))
@@ -34,11 +34,11 @@ class AuthViewModel @Inject constructor(
     private fun checkFields(login: String, password: String):Boolean{
         when {
             login.isEmpty() || password.isEmpty() -> {
-                msgState.value = AuthState.Error("Fields is empty!")
+                msgState.value = LoadState.Error("Fields is empty!")
                 return false
             }
             "%" in login || "%" in password -> {
-                msgState.value = AuthState.Error("You can't use '%'")
+                msgState.value = LoadState.Error("You can't use '%'")
                 return false
             }
         }
