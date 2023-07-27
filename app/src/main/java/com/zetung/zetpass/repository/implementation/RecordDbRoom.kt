@@ -4,21 +4,22 @@ import android.content.Context
 import com.zetung.zetpass.repository.RecordDbAPI
 import com.zetung.zetpass.repository.model.RecordModel
 import com.zetung.zetpass.repository.support.LocalDb
+import javax.inject.Inject
 
 class RecordDbRoom (private val context: Context) : RecordDbAPI {
-    override fun insertRecord(recordModel: RecordModel) {
+    override suspend fun insertRecord(recordModel: RecordModel) {
         LocalDb.getDb(context).getRecordDAO().insertRecord(recordModel)
     }
 
-    override fun selectRecords(owner: String): List<RecordModel> {
+    override suspend fun selectRecords(owner: String): List<RecordModel> {
         return LocalDb.getDb(context).getRecordDAO().selectRecords(owner)
     }
 
-    override fun deleteRecord(recordModel: RecordModel) {
+    override suspend fun deleteRecord(recordModel: RecordModel) {
         LocalDb.getDb(context).getRecordDAO().deleteRecord(recordModel)
     }
 
-    override fun updateRecord(recordModel: RecordModel) {
+    override suspend fun updateRecord(recordModel: RecordModel) {
         LocalDb.getDb(context).getRecordDAO().deleteRecord(recordModel)
     }
 }

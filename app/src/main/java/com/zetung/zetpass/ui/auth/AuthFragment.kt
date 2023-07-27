@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.zetung.zetpass.R
 import com.zetung.zetpass.databinding.FragmentAuthBinding
-import com.zetung.zetpass.utils.AuthState
+import com.zetung.zetpass.utils.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -29,9 +29,9 @@ class AuthFragment : Fragment() {
     ): View {
         _binding = FragmentAuthBinding.inflate(inflater,container,false)
 
-        val state = Observer<AuthState> { msgState ->
+        val state = Observer<LoadState> { msgState ->
             Toast.makeText(context,msgState.msg,Toast.LENGTH_SHORT).show()
-            if (msgState is AuthState.Done)
+            if (msgState is LoadState.Done)
                 findNavController().navigate(R.id.action_authFragment_to_homeFragment)
         }
         authViewModel.msgState.observe(viewLifecycleOwner, state)
