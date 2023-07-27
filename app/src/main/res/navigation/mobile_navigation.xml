@@ -20,7 +20,11 @@
         android:id="@+id/nav_home"
         android:name="com.zetung.zetpass.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_redactFragment"
+            app:destination="@id/redactFragment" />
+    </fragment>
     <fragment
         android:id="@+id/redactFragment"
         android:name="com.zetung.zetpass.ui.redact.RedactFragment"

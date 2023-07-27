@@ -1,4 +1,4 @@
-package com.zetung.zetpass.ui.home
+package com.zetung.zetpass.ui.redact
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,35 +14,22 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class RedactViewModel @Inject constructor(
     private val zetPassAPI: ZetPassAPI,
     private val currentRecords: CurrentRecords
-): ViewModel() {
+) : ViewModel() {
 
-    val msgState = MutableLiveData<LoadState>()
+    var redactRecord = MutableLiveData<String>().apply {
+        value = currentRecords.redactRecord.data
+    }
 
-    var records = MutableLiveData<MutableList<RecordModel>>().apply{
+    fun addLocalRecord(recordModel: RecordModel){
         CoroutineScope(Dispatchers.Main).launch{
             val result = withContext(Dispatchers.IO) {
-                zetPassAPI.setupLocalRecords().last()
-            }
-            msgState.value = result
-            if(msgState.value is LoadState.Done){
-                value = zetPassAPI.getRecords().toMutableList()
-                currentRecords.allRecords = zetPassAPI.getRecords().toMutableList()
+                zetPassAPI.addRecord(recordModel).last()
             }
         }
-    }
-
-    fun setupLocalRecords(){
-        records.value = currentRecords.allRecords
-    }
-
-
-    fun setRedactRecord(recordModel: RecordModel){
-        currentRecords.redactRecord = recordModel
     }
 
 }

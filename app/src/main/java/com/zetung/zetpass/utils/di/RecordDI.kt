@@ -21,10 +21,9 @@ object RecordDI {
 
     @Provides
     fun provideZetPassImpl(currentAppSettings: CurrentAppSettings,
-                           currentRecords: CurrentRecords,
                            currentUser: CurrentUser,
                            recordDbAPI: RecordDbAPI): ZetPassAPI {
-        return ZetPassImpl(currentAppSettings,currentUser,currentRecords,recordDbAPI)
+        return ZetPassImpl(currentAppSettings,currentUser,recordDbAPI)
     }
 
     @Provides

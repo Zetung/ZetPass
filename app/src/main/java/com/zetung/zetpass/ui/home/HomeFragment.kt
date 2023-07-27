@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zetung.zetpass.R
 import com.zetung.zetpass.databinding.FragmentHomeBinding
 import com.zetung.zetpass.repository.model.RecordModel
 import com.zetung.zetpass.ui.OnRecordClickListener
@@ -41,7 +43,8 @@ class HomeFragment : Fragment(), OnRecordClickListener {
         homeViewModel.records.observe(viewLifecycleOwner,recordObserver)
 
         val state = Observer<LoadState> { msgState ->
-            Toast.makeText(context,msgState.msg, Toast.LENGTH_SHORT).show()
+            if(msgState.msg != "Done!")
+                Toast.makeText(context,msgState.msg, Toast.LENGTH_SHORT).show()
         }
         homeViewModel.msgState.observe(viewLifecycleOwner, state)
 
@@ -51,9 +54,8 @@ class HomeFragment : Fragment(), OnRecordClickListener {
         binding.homeView.adapter = adapter
 
         binding.addButton.setOnClickListener {
-            homeViewModel.addLocalRecord(RecordModel(null,"Zetung",
-                "standard","Minecraft",
-                "login!Robbey831;password!zxc1234;","----"))
+            homeViewModel.setRedactRecord(RecordModel(null,"","standard","","",""))
+            findNavController().navigate(R.id.action_nav_home_to_redactFragment)
         }
 
         return binding.root
@@ -65,6 +67,7 @@ class HomeFragment : Fragment(), OnRecordClickListener {
     }
 
     override fun onRecordClick(position: Int, data: RecordModel) {
-        TODO("Not yet implemented")
+        homeViewModel.setRedactRecord(data)
+        findNavController().navigate(R.id.action_nav_home_to_redactFragment)
     }
 }

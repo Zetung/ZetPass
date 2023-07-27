@@ -7,4 +7,5 @@ import javax.inject.Singleton
 @Singleton
 class CurrentRecords @Inject constructor() {
     var allRecords = mutableListOf<RecordModel>()
+    var redactRecord: RecordModel = RecordModel(null,"","standard","","","")
 }

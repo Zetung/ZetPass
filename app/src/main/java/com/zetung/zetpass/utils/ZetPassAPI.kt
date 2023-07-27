@@ -11,4 +11,8 @@ interface ZetPassAPI {
     fun saveToServer():LoadState
     fun loadFromServer():LoadState
     fun getRecords():List<RecordModel>
+//    fun getRedactRecord():RecordModel
+//    fun setRedactRecord(recordModel: RecordModel)
+//    fun setRedactState(redactState: RedactState)
+//    fun getRedactState():RedactState
 }

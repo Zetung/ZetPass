@@ -13,16 +13,16 @@ import javax.inject.Inject
 class ZetPassImpl @Inject constructor (
     private val currentAppSettings: CurrentAppSettings,
     private val currentUser: CurrentUser,
-    private val currentRecords: CurrentRecords,
     private val recordDbAPI: RecordDbAPI
 ) : ZetPassAPI {
 
     private var loadState: LoadState = LoadState.NotStarted()
+    private var currentRecords = mutableListOf<RecordModel>()
 
     override fun setupLocalRecords(): Flow<LoadState> = flow{
         loadState = LoadState.Loading()
         try {
-            currentRecords.allRecords = recordDbAPI.selectRecords(currentUser.userModel.login).toMutableList()
+            currentRecords = recordDbAPI.selectRecords(currentUser.userModel.login).toMutableList()
             loadState = LoadState.Done()
             emit(loadState)
         } catch (e: SQLException){
@@ -60,6 +60,24 @@ class ZetPassImpl @Inject constructor (
     }
 
     override fun getRecords(): List<RecordModel> {
-        return currentRecords.allRecords
+        return currentRecords
     }
+//
+//    override fun getRedactRecord(): RecordModel {
+//        return currentRecords.redactRecord
+//    }
+//
+//    override fun setRedactRecord(recordModel: RecordModel) {
+//        currentRecords.redactRecord = recordModel
+//    }
+//
+//    override fun setRedactState(redactState: RedactState) {
+//        this.redactState = redactState
+//    }
+//
+//    override fun getRedactState(): RedactState {
+//        return redactState
+//    }
+
+
 }

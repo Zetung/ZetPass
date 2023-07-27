@@ -5,14 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.zetung.zetpass.R
+import com.zetung.zetpass.databinding.FragmentHomeBinding
+import com.zetung.zetpass.databinding.FragmentRedactBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RedactFragment : Fragment() {
+
+    private var _binding: FragmentRedactBinding? = null
+    private val binding get() = _binding!!
+
+    private val redactViewModel: RedactViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_redact, container, false)
+    ): View {
+        _binding = FragmentRedactBinding.inflate(inflater,container,false)
+
+        binding.textView.text = redactViewModel.redactRecord.value
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
