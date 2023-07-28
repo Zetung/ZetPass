@@ -1,6 +1,6 @@
 package com.zetung.zetpass.ui
 
-class ParserView {
+object ParserView {
     fun parseStringToMap(input: String, keyValueDelimiter: Char, pairDelimiter: Char): MutableMap<String, String> {
         val resultMap = mutableMapOf<String, String>()
         val pairs = input.split(pairDelimiter)

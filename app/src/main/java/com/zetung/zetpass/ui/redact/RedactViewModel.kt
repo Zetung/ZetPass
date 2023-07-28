@@ -20,8 +20,10 @@ class RedactViewModel @Inject constructor(
     private val currentRecords: CurrentRecords
 ) : ViewModel() {
 
-    var redactRecord = MutableLiveData<String>().apply {
-        value = currentRecords.redactRecord.data
+    var redactRecord = MutableLiveData<RecordModel>()
+
+    fun loadRedactRecord(){
+        redactRecord.value = currentRecords.redactRecord
     }
 
     fun addLocalRecord(recordModel: RecordModel){
