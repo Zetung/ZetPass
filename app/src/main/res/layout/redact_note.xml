@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:ems="10"
-            android:hint="@string/name" />
+            android:hint="@string/note" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

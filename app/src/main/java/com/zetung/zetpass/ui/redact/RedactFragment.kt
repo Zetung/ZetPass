@@ -25,8 +25,12 @@ class RedactFragment : Fragment() {
     ): View {
         _binding = FragmentRedactBinding.inflate(inflater,container,false)
 
-
+        loadStandardView()
         return binding.root
+    }
+
+    private fun loadStandardView(){
+        binding.standardSet.root.visibility = View.GONE
     }
 
     override fun onDestroyView() {
