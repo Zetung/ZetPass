@@ -6,6 +6,7 @@ import com.zetung.zetpass.repository.model.RecordModel
 import com.zetung.zetpass.utils.LoadState
 import com.zetung.zetpass.utils.ZetPassAPI
 import com.zetung.zetpass.utils.singleton.CurrentRecords
+import com.zetung.zetpass.utils.singleton.CurrentUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RedactViewModel @Inject constructor(
     private val zetPassAPI: ZetPassAPI,
-    private val currentRecords: CurrentRecords
+    private val currentRecords: CurrentRecords,
+    private val currentUser: CurrentUser
 ) : ViewModel() {
 
     var redactRecord = MutableLiveData<RecordModel>()
@@ -26,12 +28,17 @@ class RedactViewModel @Inject constructor(
         redactRecord.value = currentRecords.redactRecord
     }
 
-    fun addLocalRecord(recordModel: RecordModel){
+    fun addLocalRecord(type:String,name: String, data: String, description:String){
+        val temp = RecordModel(null,currentUser.userModel.login,type,name,data,description)
+
+        currentRecords.allRecords.add(temp)
         CoroutineScope(Dispatchers.Main).launch{
             val result = withContext(Dispatchers.IO) {
-                zetPassAPI.addRecord(recordModel).last()
+                zetPassAPI.addRecord(temp).last()
             }
         }
     }
+
+
 
 }
