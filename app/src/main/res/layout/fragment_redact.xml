@@ -36,35 +36,15 @@
             android:src="@drawable/standard_record24"/>
 
 
-        <FrameLayout
+        <ViewStub
             android:id="@+id/main_set"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/spinner_redact"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
-            <include
-                layout="@layout/redact_standard"
-                android:id="@+id/standard_set"
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/spinner_redact"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
 
-            <include
-                layout="@layout/redact_note"
-                android:id="@+id/note_set"
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/spinner_redact"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-        </FrameLayout>
+        </ViewStub>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_margin="10dp"

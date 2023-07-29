@@ -5,6 +5,7 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -46,6 +47,19 @@ class RedactFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerRedact.adapter = adapter
 
+
+
+        binding.spinnerRedact.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when(position){
+                    0 -> binding.mainSet.layoutResource = R.layout.redact_standard
+                    1 -> binding.mainSet.layoutResource = R.layout.redact_note
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
         binding.submitButton.setOnClickListener {
             when(typeRecord.number){
                 1 -> {
@@ -53,7 +67,6 @@ class RedactFragment : Fragment() {
                         binding.noteSet.nameRedact.editText!!.text.toString(),
                         binding.noteSet.note.editText!!.text.toString(),
                         binding.descriptionRedact.text.toString())
-
                 }
                 else -> {
 
@@ -66,12 +79,12 @@ class RedactFragment : Fragment() {
 
 
     private fun loadView(recordModel: RecordModel){
-        binding.mainSet.removeAllViews()
+        //binding.mainSet.removeAllViews()
         if (recordModel.id == null){
             binding.deleteButton.visibility = View.GONE
             binding.doneButton.visibility = View.GONE
             binding.submitButton.visibility = View.VISIBLE
-            binding.mainSet.addView(binding.standardSet.root)
+            //binding.mainSet.addView(binding.standardSet.root)
             typeRecord = TypeRecord.Standard()
         } else
             loadContent(recordModel)
@@ -83,8 +96,8 @@ class RedactFragment : Fragment() {
                 typeRecord = TypeRecord.Note()
                 binding.spinnerRedact.setSelection(typeRecord.number)
                 binding.spinnerImage.setImageResource(R.drawable.note_record24)
-
-                binding.mainSet.addView(binding.noteSet.root)
+                
+                //binding.mainSet.addView(binding.noteSet.root)
                 binding.noteSet.nameRedact.editText!!.text = SpannableStringBuilder(recordModel.name)
                 binding.description.editText!!.text = SpannableStringBuilder(recordModel.description)
 
@@ -97,7 +110,7 @@ class RedactFragment : Fragment() {
                 binding.spinnerRedact.setSelection(typeRecord.number)
                 binding.spinnerImage.setImageResource(R.drawable.standard_record24)
 
-                binding.mainSet.addView(binding.standardSet.root)
+                //binding.mainSet.addView(binding.standardSet.root)
                 binding.standardSet.nameRedact.editText!!.text = SpannableStringBuilder(recordModel.name)
                 binding.description.editText!!.text = SpannableStringBuilder(recordModel.description)
 
